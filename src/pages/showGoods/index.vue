@@ -1,0 +1,754 @@
+<template>
+  <view class="showGoods">
+    <view class="showGoods-title">
+      <p class="showGoods-content" @click="goto">
+        畅通奶茶(哈尔滨理工大学店)
+      </p>
+    </view>
+    <view class="showGoods-detail" @click="searchShopContent">查看门店信息
+       <nut-icon name="arrow-right" size="10"></nut-icon>
+    </view>
+    <nut-noticebar
+      text="小店新开，欢迎顾客光临！新店开张，优惠满满，活动期间可享受五折优惠！快来品尝"
+      :scrollable="true"
+      :background="`rgba(213, 124, 139, 3)`"
+      :color="`#fff`"
+      class="showGoods-noticeBar"
+    >
+    </nut-noticebar>
+    <nut-tabs
+      v-model="topMenuState.tabValue"
+      color="#d57c8b"
+      background="#fff"
+      class="showGoods-tabs"
+    >
+      <nut-tabpane title="经典菜单">
+        <nut-tabs
+          style="height: 500px"
+          v-model="leftMenuState.tabValue"
+          type="smile"
+          title-scroll
+          direction="vertical"
+          class="showGoods-tabPane"
+          color="#d57c8b"
+          background="#fafafa"
+          size="small"
+        >
+          <nut-tabpane title="人气Top ☆">
+            <view class="drinkMenu">
+              <nut-swiper
+                :init-page="page"
+                :pagination-visible="true"
+                pagination-color="#426543"
+                auto-play="3000"
+              >
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+              </nut-swiper>
+            </view>
+            <view class="drinkCard">
+              <nut-card
+                :img-url="lemon.imgUrl"
+                :title="lemon.title"
+                :price="lemon.price"
+                :vipPrice="lemon.vipPrice"
+                :delivery="lemon.delivery"
+              >
+                <template #footer>
+                  <goodsDescribeVue></goodsDescribeVue>
+                </template>
+              </nut-card>
+            </view>
+            <view
+              class="drinkCard"
+              v-for="(item, index) in drinkState"
+              :key="index"
+            >
+              <nut-card
+                :img-url="item.imgUrl"
+                :title="item.title"
+                :price="item.price"
+                :vipPrice="item.vipPrice"
+                :delivery="item.delivery"
+              >
+                <template #footer>
+                  <nut-button
+                    size="mini"
+                    plain
+                    type="primary"
+                    icon="uploader"
+                    color="#d1576b"
+                    class="drinkCard-button"
+                    @click="updatePrice(index)"
+                  ></nut-button>
+                </template>
+              </nut-card>
+            </view>
+          </nut-tabpane>
+          <nut-tabpane title="清爽果茶 ♔">
+            <view class="drinkMenu">
+              <nut-swiper
+                :init-page="page"
+                :pagination-visible="true"
+                pagination-color="#426543"
+                auto-play="3000"
+              >
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+              </nut-swiper>
+            </view>
+            <view
+              class="drinkCard"
+              v-for="(item, index) in fruitDrinkData"
+              :key="index"
+            >
+              <nut-card
+                :img-url="item.imgUrl"
+                :title="item.title"
+                :price="item.price"
+                :vipPrice="item.vipPrice"
+                :delivery="item.delivery"
+              >
+                <template #footer>
+                  <nut-button
+                    size="mini"
+                    plain
+                    type="primary"
+                    icon="uploader"
+                    color="#d1576b"
+                    class="drinkCard-button"
+                     @click="updatePrice(index)"
+                  ></nut-button
+                ></template>
+              </nut-card>
+            </view>
+          </nut-tabpane>
+          <nut-tabpane title="香醇奶茶 ♬">
+            <view class="drinkMenu">
+              <nut-swiper
+                :init-page="page"
+                :pagination-visible="true"
+                pagination-color="#426543"
+                auto-play="3000"
+              >
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+              </nut-swiper>
+            </view>
+            <view
+              class="drinkCard"
+              v-for="(item, index) in MilkTeaDrinkData"
+              :key="index"
+            >
+              <nut-card
+                :img-url="item.imgUrl"
+                :title="item.title"
+                :price="item.price"
+                :vipPrice="item.vipPrice"
+                :delivery="item.delivery"
+              >
+                <template #footer>
+                  <nut-button
+                    size="mini"
+                    plain
+                    type="primary"
+                    icon="uploader"
+                    color="#d1576b"
+                    class="drinkCard-button"
+                     @click="updatePrice(index)"
+                  ></nut-button>
+                </template>
+              </nut-card> </view
+          ></nut-tabpane>
+          <nut-tabpane title="丝滑拿铁 ☞">
+            <view class="drinkMenu">
+              <nut-swiper
+                :init-page="page"
+                :pagination-visible="true"
+                pagination-color="#426543"
+                auto-play="3000"
+              >
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+              </nut-swiper>
+            </view>
+            <view
+              class="drinkCard"
+              v-for="(item, index) in CoffeeDrinkData"
+              :key="index"
+            >
+              <nut-card
+                :img-url="item.imgUrl"
+                :title="item.title"
+                :price="item.price"
+                :vipPrice="item.vipPrice"
+                :delivery="item.delivery"
+              >
+                <template #footer>
+                  <nut-button
+                    size="mini"
+                    plain
+                    type="primary"
+                    icon="uploader"
+                    color="#d1576b"
+                    class="drinkCard-button"
+                     @click="updatePrice(index)"
+                  ></nut-button
+                ></template>
+              </nut-card>
+            </view>
+          </nut-tabpane>
+          <nut-tabpane title="经典饮品 ✌">
+            <view class="drinkMenu">
+              <nut-swiper
+                :init-page="page"
+                :pagination-visible="true"
+                pagination-color="#426543"
+                auto-play="3000"
+              >
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+                <nut-swiper-item>
+                  <img
+                    src="https://pic.90sheji.com/design/02/99/83/59/5db569936b2a8.png!/fwfh/804x459/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
+                    alt=""
+                  />
+                </nut-swiper-item>
+              </nut-swiper>
+            </view>
+          </nut-tabpane>
+        </nut-tabs>
+      </nut-tabpane>
+      <nut-tabpane title="来店必喝"> Tab 2 </nut-tabpane>
+      <nut-tabpane title="小店公告"> Tab 3 </nut-tabpane>
+    </nut-tabs>
+  </view>
+  <view class="showGoods-cart">
+    <view class="showGoods-number">{{count}}</view>
+    <nut-button type="primary" plain icon="cart" color="#d1576b" size="normal" class="showGoods-cart__icon" ></nut-button>
+    <nut-price
+      :price="totalPrice"
+      size="large"
+      :need-symbol="true"
+      :thousands="true"
+      class="showGoods-cart__price"
+    />
+    <nut-button shape="square" type="primary" color="#d1576b" class="showGoods-cart__totalPrice" @click="goCart"
+      >去结算</nut-button
+    >
+  </view>
+</template>
+<script lang="ts">
+import { defineComponent, reactive, toRefs, ref } from "vue";
+import goodsDescribeVue from "./goodsDescribe.vue";
+import Taro from "@tarojs/taro";
+
+// import drinkMenuVue from "./drinkMenu.vue";
+export default defineComponent({
+  name: "ShowGoods",
+  components: {
+    goodsDescribeVue,
+  },
+  setup() {
+    const topMenuState = reactive({
+      tabValue: "0",
+    });
+    const leftMenuState = reactive({
+      tabValue: "0",
+    });
+    const state = reactive({
+      page: 2,
+    });
+    const lemon = ref({
+      imgUrl:
+        "https://img1.baidu.com/it/u=2746809737,313183955&fm=253&fmt=auto&app=138&f=JPEG?w=520&h=500",
+      title: "人气Top柠檬水",
+      price: 2,
+      vipPrice: 4,
+      delivery: "清爽一夏",
+    });
+    const drinkState = reactive([
+      {
+        imgUrl:
+          "https://img2.baidu.com/it/u=711876027,2433041885&fm=253&fmt=auto&app=138&f=JPEG?w=725&h=500",
+        title: "雪顶焦糖奶茶",
+        price: 3,
+        vipPrice: 6,
+        delivery: "很好喝",
+      },
+      {
+        imgUrl:
+          "https://img0.baidu.com/it/u=3526730769,377536299&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500",
+        title: "芋泥波波奶茶",
+        price: 9,
+        vipPrice: 18,
+        delivery: "要芋泥也要波波",
+      },
+      {
+        imgUrl:
+          "https://img1.baidu.com/it/u=336399744,2972811656&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500",
+        title: "南瓜汁汁奶茶",
+        price: 13,
+        vipPrice: 26,
+        delivery: "不一样的新鲜体验",
+      },
+      {
+        imgUrl:
+          "https://img1.baidu.com/it/u=1768916679,3083656168&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+        title: "那么多凤梨水果茶",
+        price: 12,
+        vipPrice: 24,
+        delivery: "清爽一夏",
+      },
+    ]);
+    const fruitDrinkData = [
+      {
+        imgUrl:
+          "https://img1.baidu.com/it/u=2746809737,313183955&fm=253&fmt=auto&app=138&f=JPEG?w=520&h=500",
+        title: "人气Top柠檬水",
+        price: "6",
+        vipPrice: "3",
+        delivery: "清爽一夏",
+      },
+      {
+        imgUrl:
+          "https://img0.baidu.com/it/u=762744802,199886767&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+        title: "草莓樱桃水果茶",
+        price: "18",
+        vipPrice: "9",
+        delivery: "清爽一夏",
+      },
+      {
+        imgUrl:
+          "https://img0.baidu.com/it/u=1139227651,1623789256&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=759",
+        title: "西柚火龙果水果茶",
+        price: "26",
+        vipPrice: "13",
+        delivery: "清爽一夏",
+      },
+      {
+        imgUrl:
+          "https://img1.baidu.com/it/u=1768916679,3083656168&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
+        title: "那么多凤梨水果茶",
+        price: "24",
+        vipPrice: "12",
+        delivery: "清爽一夏",
+      },
+    ];
+    const CoffeeDrinkData = [
+      {
+        imgUrl:
+          "https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00017-2119.jpg",
+        title: "浓郁意式咖啡",
+        price: "6",
+        vipPrice: "3",
+        delivery: "清爽一夏",
+      },
+      {
+        imgUrl: "https://img2.baidu.com/it/u=685652074,40492938&fm=26&fmt=auto",
+        title: "一杯美式",
+        price: "18",
+        vipPrice: "9",
+        delivery: "清爽一夏",
+      },
+      {
+        imgUrl:
+          "https://img2.baidu.com/it/u=1097700801,148175039&fm=253&fmt=auto&app=138&f=JPEG?w=610&h=500",
+        title: "牛奶咖啡",
+        price: "26",
+        vipPrice: "13",
+        delivery: "清爽一夏",
+      },
+      {
+        imgUrl:
+          "https://img0.baidu.com/it/u=3958759922,2882971296&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=333",
+        title: "摩卡咖啡",
+        price: "24",
+        vipPrice: "12",
+        delivery: "清爽一夏",
+      },
+    ];
+    const MilkTeaDrinkData = [
+      {
+        imgUrl:
+          "https://img2.baidu.com/it/u=711876027,2433041885&fm=253&fmt=auto&app=138&f=JPEG?w=725&h=500",
+        title: "雪顶焦糖奶茶",
+        price: "6",
+        vipPrice: "3",
+        delivery: "很好喝",
+      },
+      {
+        imgUrl:
+          "https://img0.baidu.com/it/u=3526730769,377536299&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500",
+        title: "芋泥波波奶茶",
+        price: "18",
+        vipPrice: "9",
+        delivery: "要芋泥也要波波",
+      },
+      {
+        imgUrl:
+          "https://img1.baidu.com/it/u=336399744,2972811656&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500",
+        title: "南瓜汁汁奶茶",
+        price: "26",
+        vipPrice: "13",
+        delivery: "不一样的新鲜体验",
+      },
+      {
+        imgUrl:
+          "https://img2.baidu.com/it/u=3386650925,2970685805&fm=253&fmt=auto&app=138&f=JPEG?w=334&h=500",
+        title: "抹茶珍珠奶茶",
+        price: "24",
+        vipPrice: "12",
+        delivery: "浓郁的抹茶清香",
+      },
+      {
+        imgUrl:
+          "https://img2.baidu.com/it/u=2936801006,1598405033&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500",
+        title: "榴莲布丁奶茶",
+        price: "24",
+        vipPrice: "12",
+        delivery: "丝滑一夏",
+      },
+    ];
+    var totalPrice=ref(0);
+   var count=ref(0);
+    const updatePrice=(index:number)=>{
+      totalPrice.value=drinkState[index].price+totalPrice.value;
+      count.value+=1;
+    }
+    const goCart=()=>{
+       Taro.navigateTo({
+        url: "/pages/shopCart/index",
+      });
+    }
+    const goto=()=>{
+      console.log("hh");
+      
+    }
+    const searchShopContent=()=>{
+       Taro.navigateTo({
+        url: "/pages/shopDetail/index",
+      });
+    }
+    return {
+      ...toRefs(state),
+      topMenuState,
+      leftMenuState,
+      drinkState,
+      fruitDrinkData,
+      MilkTeaDrinkData,
+      CoffeeDrinkData,
+      lemon,
+      updatePrice,
+      totalPrice,
+      count,
+      goCart,
+      goto,
+      searchShopContent
+    };
+  },
+});
+</script>
+<style lang="scss">
+.showGoods-title {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-family: "微软雅黑";
+  margin-left: 12px;
+  .showGoods-content {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top:5px;
+  }
+}
+.showGoods-noticeBar {
+  margin-top: 10px;
+}
+.showGoods-tabs {
+  display: flex;
+}
+.nut-tabpane {
+  padding: 0;
+  // margin-left:20px;
+}
+.showGoods-tabpane {
+  position: absolute;
+  margin-top: 10px;
+  right: 0;
+}
+.nut-tabs.vertical .nut-tabs__titles {
+  padding: 0 !important;
+}
+.drinkMenu .nut-swiper-item {
+  line-height: 120px;
+  img {
+    width: 74%;
+    height: 110%;
+  }
+}
+.drinkMenu {
+  width: 274px;
+  background-color: rgb(248, 230, 230);
+  border-radius: 12px;
+}
+.search_prolist_attr {
+  margin: 3px 0 1px;
+  height: 15px;
+  overflow: hidden;
+}
+.search_prolist_attr > span {
+  float: left;
+  padding: 0 5px;
+  border-radius: 1px;
+  font-size: 10px;
+  height: 15px;
+  line-height: 15px;
+  color: #999;
+  background-color: #f2f2f7;
+  margin-right: 5px;
+}
+.tag {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  margin-left: 2px;
+  height: 14px;
+}
+.customize {
+  font-size: 12px;
+}
+.drinkCard {
+  margin-top: 10px;
+  width: 276px;
+}
+.nut-card .nut-card__left > .h5-img {
+  width: 60%;
+  height: 60%;
+  margin-left: 25px;
+  border-radius: 5px;
+}
+.nut-card .nut-card__right {
+  padding: 5 10px 0 0;
+}
+.nut-card .nut-card__left {
+  width: 110px;
+  height: 110px;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+.sku-operate-box {
+  width: 100%;
+  display: flex;
+  padding: 8px 10px;
+  box-sizing: border-box;
+}
+.sku-operate-item {
+  flex: 1;
+}
+.sku-operate-item:first-child {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+.sku-operate-item:last-child {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+// .showGoods-norms {
+//   width: 50px;
+//   height: 46px;
+//   font-size: 5px;
+//   position: absolute;
+//   right: 4px;
+//   top: 280px;
+//   z-index: 1;
+//   background-color: #fff;
+// }
+.nut-cell__title {
+  font-size: 10px;
+  font-family: "微软雅黑";
+  color: #fff;
+}
+.nut-cell {
+  background-color: #d1576b;
+  padding: 3px 6px;
+}
+.nut-tabs.vertical .nut-tabs__titles {
+  padding: 0 !important;
+}
+.nut-card .nut-card__right .nut-card__right__shop {
+  margin-top: -34px;
+  margin-right: -6px;
+}
+.nut-popup {
+  margin-left: -100px;
+  width: 384px;
+  height: 85% !important;
+}
+.nut-card .nut-card__right .nut-card__right__shop {
+  margin-top: -33px;
+  margin-right: -6px;
+  width: 50px;
+  margin-left: 90px;
+}
+.drinkCard-button {
+  width: 10px;
+  height: 25px;
+  margin-right: 8px;
+  margin-top: 7px;
+}
+.nut-icon {
+  font-size: 10px;
+}
+.showGoods-cart {
+  width: 100%;
+  position:fixed;
+  bottom:0;
+  background-color:rgb(241, 240, 240);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__icon{
+    position:relative;
+    margin-left: 20px;
+    width: 63px;
+    .nut-icon {
+  font-size: 16px;
+}
+  }
+  &__price{
+    margin-left:-130px;
+    color:#d1576b;
+  }
+  &__totalPrice{
+   height: 45px;
+  }
+}
+.sku-operate-box{
+  z-index:1;
+  margin-bottom:40px;
+}
+.showGoods-number{
+  width: 20px;
+  position:absolute;
+  top:0;
+  left:0;
+  background-color: #d1576b;
+  color:#fff;
+  margin-left:60px;
+  border-radius: 20px;
+  z-index:1;
+  text-align: center;
+}
+.showGoods-detail{
+  position:relative;
+  left:280px;
+  font-size:11px;
+
+}
+</style>
