@@ -1,12 +1,11 @@
 <template>
   <view class="showGoods">
     <view class="showGoods-title">
-      <p class="showGoods-content" @click="goto">
-        畅通奶茶(哈尔滨理工大学店)
-      </p>
+      <p class="showGoods-content" @click="goto">畅通奶茶(哈尔滨理工大学店)</p>
     </view>
-    <view class="showGoods-detail" @click="searchShopContent">查看门店信息
-       <nut-icon name="arrow-right" size="10"></nut-icon>
+    <view class="showGoods-detail" @click="searchShopContent"
+      >查看门店信息
+      <nut-icon name="arrow-right" size="10"></nut-icon>
     </view>
     <nut-noticebar
       text="小店新开，欢迎顾客光临！新店开张，优惠满满，活动期间可享受五折优惠！快来品尝"
@@ -101,7 +100,7 @@
                     icon="uploader"
                     color="#d1576b"
                     class="drinkCard-button"
-                    @click="updatePrice(index)"
+                    @click="updateDrinkStatePrice(index)"
                   ></nut-button>
                 </template>
               </nut-card>
@@ -161,7 +160,7 @@
                     icon="uploader"
                     color="#d1576b"
                     class="drinkCard-button"
-                     @click="updatePrice(index)"
+                    @click="updateFruitPrice(index)"
                   ></nut-button
                 ></template>
               </nut-card>
@@ -221,7 +220,7 @@
                     icon="uploader"
                     color="#d1576b"
                     class="drinkCard-button"
-                     @click="updatePrice(index)"
+                    @click="updateMilkTeaPrice(index)"
                   ></nut-button>
                 </template>
               </nut-card> </view
@@ -280,7 +279,7 @@
                     icon="uploader"
                     color="#d1576b"
                     class="drinkCard-button"
-                     @click="updatePrice(index)"
+                    @click="updateCoffeePrice(index)"
                   ></nut-button
                 ></template>
               </nut-card>
@@ -328,8 +327,15 @@
     </nut-tabs>
   </view>
   <view class="showGoods-cart">
-    <view class="showGoods-number">{{count}}</view>
-    <nut-button type="primary" plain icon="cart" color="#d1576b" size="normal" class="showGoods-cart__icon" ></nut-button>
+    <view class="showGoods-number">{{ totalCount }}</view>
+    <nut-button
+      type="primary"
+      plain
+      icon="cart"
+      color="#d1576b"
+      size="normal"
+      class="showGoods-cart__icon"
+    ></nut-button>
     <nut-price
       :price="totalPrice"
       size="large"
@@ -337,7 +343,12 @@
       :thousands="true"
       class="showGoods-cart__price"
     />
-    <nut-button shape="square" type="primary" color="#d1576b" class="showGoods-cart__totalPrice" @click="goCart"
+    <nut-button
+      shape="square"
+      type="primary"
+      color="#d1576b"
+      class="showGoods-cart__totalPrice"
+      @click="goCart"
       >去结算</nut-button
     >
   </view>
@@ -410,32 +421,32 @@ export default defineComponent({
         imgUrl:
           "https://img1.baidu.com/it/u=2746809737,313183955&fm=253&fmt=auto&app=138&f=JPEG?w=520&h=500",
         title: "人气Top柠檬水",
-        price: "6",
-        vipPrice: "3",
+        price: 6,
+        vipPrice: 3,
         delivery: "清爽一夏",
       },
       {
         imgUrl:
           "https://img0.baidu.com/it/u=762744802,199886767&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
         title: "草莓樱桃水果茶",
-        price: "18",
-        vipPrice: "9",
+        price: 18,
+        vipPrice: 9,
         delivery: "清爽一夏",
       },
       {
         imgUrl:
           "https://img0.baidu.com/it/u=1139227651,1623789256&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=759",
         title: "西柚火龙果水果茶",
-        price: "26",
-        vipPrice: "13",
+        price: 26,
+        vipPrice: 13,
         delivery: "清爽一夏",
       },
       {
         imgUrl:
           "https://img1.baidu.com/it/u=1768916679,3083656168&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
         title: "那么多凤梨水果茶",
-        price: "24",
-        vipPrice: "12",
+        price: 24,
+        vipPrice: 12,
         delivery: "清爽一夏",
       },
     ];
@@ -444,31 +455,31 @@ export default defineComponent({
         imgUrl:
           "https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00017-2119.jpg",
         title: "浓郁意式咖啡",
-        price: "6",
-        vipPrice: "3",
+        price: 6,
+        vipPrice: 3,
         delivery: "清爽一夏",
       },
       {
         imgUrl: "https://img2.baidu.com/it/u=685652074,40492938&fm=26&fmt=auto",
         title: "一杯美式",
-        price: "18",
-        vipPrice: "9",
+        price: 18,
+        vipPrice: 9,
         delivery: "清爽一夏",
       },
       {
         imgUrl:
           "https://img2.baidu.com/it/u=1097700801,148175039&fm=253&fmt=auto&app=138&f=JPEG?w=610&h=500",
         title: "牛奶咖啡",
-        price: "26",
-        vipPrice: "13",
+        price: 26,
+        vipPrice: 13,
         delivery: "清爽一夏",
       },
       {
         imgUrl:
           "https://img0.baidu.com/it/u=3958759922,2882971296&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=333",
         title: "摩卡咖啡",
-        price: "24",
-        vipPrice: "12",
+        price: 24,
+        vipPrice: 12,
         delivery: "清爽一夏",
       },
     ];
@@ -477,63 +488,86 @@ export default defineComponent({
         imgUrl:
           "https://img2.baidu.com/it/u=711876027,2433041885&fm=253&fmt=auto&app=138&f=JPEG?w=725&h=500",
         title: "雪顶焦糖奶茶",
-        price: "6",
-        vipPrice: "3",
+        price: 6,
+        vipPrice: 3,
         delivery: "很好喝",
       },
       {
         imgUrl:
           "https://img0.baidu.com/it/u=3526730769,377536299&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=500",
         title: "芋泥波波奶茶",
-        price: "18",
-        vipPrice: "9",
+        price: 18,
+        vipPrice: 9,
         delivery: "要芋泥也要波波",
       },
       {
         imgUrl:
           "https://img1.baidu.com/it/u=336399744,2972811656&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500",
         title: "南瓜汁汁奶茶",
-        price: "26",
-        vipPrice: "13",
+        price: 26,
+        vipPrice: 13,
         delivery: "不一样的新鲜体验",
       },
       {
         imgUrl:
           "https://img2.baidu.com/it/u=3386650925,2970685805&fm=253&fmt=auto&app=138&f=JPEG?w=334&h=500",
         title: "抹茶珍珠奶茶",
-        price: "24",
-        vipPrice: "12",
+        price: 24,
+        vipPrice: 12,
         delivery: "浓郁的抹茶清香",
       },
       {
         imgUrl:
           "https://img2.baidu.com/it/u=2936801006,1598405033&fm=253&fmt=auto&app=138&f=JPEG?w=750&h=500",
         title: "榴莲布丁奶茶",
-        price: "24",
-        vipPrice: "12",
+        price: 24,
+        vipPrice: 12,
         delivery: "丝滑一夏",
       },
     ];
-    var totalPrice=ref(0);
-   var count=ref(0);
-    const updatePrice=(index:number)=>{
-      totalPrice.value=drinkState[index].price+totalPrice.value;
-      count.value+=1;
-    }
-    const goCart=()=>{
-       Taro.navigateTo({
+    var totalPrice = ref(0);
+    var totalCount = ref(0);
+    const count1 = ref(0);
+    const count2 = ref(0);
+    const count3 = ref(0);
+    const count4 = ref(0);
+
+    const updateDrinkStatePrice = (index: number) => {
+      totalPrice.value = drinkState[index].price + totalPrice.value;
+      count1.value += 1;
+      totalCount.value += 1;
+      console.log(count1.value);
+      console.log(totalCount.value);
+    };
+    const updateFruitPrice = (index: number) => {
+      totalPrice.value = fruitDrinkData[index].price + totalPrice.value;
+      count2.value += 1;
+      totalCount.value += 1;
+    };
+    const updateCoffeePrice = (index: number) => {
+      totalPrice.value = CoffeeDrinkData[index].price + totalPrice.value;
+      count3.value += 1;
+      totalCount.value += 1;
+    };
+    const updateMilkTeaPrice = (index: number) => {
+      totalPrice.value = MilkTeaDrinkData[index].price + totalPrice.value;
+      count4.value += 1;
+      totalCount.value += 1;
+    };
+
+    const goCart = () => {
+      Taro.navigateTo({
         url: "/pages/shopCart/index",
       });
-    }
-    const goto=()=>{
+    };
+    const goto = () => {
       console.log("hh");
-      
-    }
-    const searchShopContent=()=>{
-       Taro.navigateTo({
+    };
+    const searchShopContent = () => {
+      Taro.navigateTo({
         url: "/pages/shopDetail/index",
       });
-    }
+    };
     return {
       ...toRefs(state),
       topMenuState,
@@ -543,12 +577,15 @@ export default defineComponent({
       MilkTeaDrinkData,
       CoffeeDrinkData,
       lemon,
-      updatePrice,
+      updateDrinkStatePrice,
       totalPrice,
-      count,
+      updateFruitPrice,
       goCart,
       goto,
-      searchShopContent
+      searchShopContent,
+      updateCoffeePrice,
+      updateMilkTeaPrice,
+      totalCount,
     };
   },
 });
@@ -563,7 +600,7 @@ export default defineComponent({
   .showGoods-content {
     font-size: 16px;
     font-weight: 500;
-    margin-top:5px;
+    margin-top: 5px;
   }
 }
 .showGoods-noticeBar {
@@ -707,48 +744,47 @@ export default defineComponent({
 }
 .showGoods-cart {
   width: 100%;
-  position:fixed;
-  bottom:0;
-  background-color:rgb(241, 240, 240);
+  position: fixed;
+  bottom: 0;
+  background-color: rgb(241, 240, 240);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  &__icon{
-    position:relative;
+  &__icon {
+    position: relative;
     margin-left: 20px;
     width: 63px;
     .nut-icon {
-  font-size: 16px;
-}
+      font-size: 16px;
+    }
   }
-  &__price{
-    margin-left:-130px;
-    color:#d1576b;
+  &__price {
+    margin-left: -130px;
+    color: #d1576b;
   }
-  &__totalPrice{
-   height: 45px;
+  &__totalPrice {
+    height: 45px;
   }
 }
-.sku-operate-box{
-  z-index:1;
-  margin-bottom:40px;
+.sku-operate-box {
+  z-index: 1;
+  margin-bottom: 40px;
 }
-.showGoods-number{
+.showGoods-number {
   width: 20px;
-  position:absolute;
-  top:0;
-  left:0;
+  position: absolute;
+  top: 0;
+  left: 0;
   background-color: #d1576b;
-  color:#fff;
-  margin-left:60px;
+  color: #fff;
+  margin-left: 60px;
   border-radius: 20px;
-  z-index:1;
+  z-index: 1;
   text-align: center;
 }
-.showGoods-detail{
-  position:relative;
-  left:280px;
-  font-size:11px;
-
+.showGoods-detail {
+  position: relative;
+  left: 280px;
+  font-size: 11px;
 }
 </style>
