@@ -4,8 +4,10 @@ export default defineAppConfig({
     'pages/showGoods/index',
     'pages/mine/index',
     'pages/shopCart/index',
-    'pages/try/index',
-    'pages/shopDetail/index'
+    'pages/shopDetail/index',
+    'pages/order/index',
+    'pages/showAddress/index',
+    'pages/showGoodsOut/index'
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -26,12 +28,6 @@ export default defineAppConfig({
         iconPath:"images/milkTea2.png",
         selectedIconPath:"images/milkTea.png",
         text:'点餐'
-      },
-      {
-        pagePath:"pages/try/index",
-        iconPath:"images/milkTea2.png",
-        selectedIconPath:"images/milkTea.png",
-        text:'订单'
       },
       {
         pagePath:"pages/mine/index",

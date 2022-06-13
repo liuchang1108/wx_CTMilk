@@ -37,6 +37,7 @@
           icon="https://pic.90sheji.com/design/01/11/96/52/5959a0427eee9.png!/fwfh/804x804/clip/0x800a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true"
           icon-size="80"
           text="外卖"
+          @click="gotoAddress"
         ></nut-grid-item>
       </nut-grid>
     </view>
@@ -79,13 +80,20 @@ export default defineComponent({
   name: "AppMain",
   components: {},
   setup() {
+    
     const goto = () => {
       Taro.switchTab({
         url: "/pages/showGoods/index",
       });
     };
+    const gotoAddress=()=>{
+       Taro.navigateTo({
+        url: "/pages/showGoodsOut/index",
+      });
+    }
     return {
       goto,
+      gotoAddress
     };
   },
 });

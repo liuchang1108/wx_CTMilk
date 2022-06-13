@@ -34,7 +34,7 @@
     <nut-cell
       title="畅通奶茶"
       desc="哈尔滨理工大学西区东门"
-      icon="dshop"
+      icon="shop"
     ></nut-cell>
     <nut-cell
       icon="star-n"
@@ -90,6 +90,9 @@ export default defineComponent({
   name: "ShowGoods",
   props:{},
   setup() {
+    Taro.setNavigationBarTitle({
+  title: '店铺介绍'
+})
       const state = reactive({
         showBasic: false
       });

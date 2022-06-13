@@ -43,8 +43,9 @@
     "@tarojs/runtime": "3.4.3",
     "@tarojs/taro": "3.4.3",
     "taro-ui-vue3": "^1.0.0-alpha.21",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.14"
+    "tarojs-router-next": "^2.8.1",
+    "tarojs-router-next-plugin": "^2.8.1",
+    "vue": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",
